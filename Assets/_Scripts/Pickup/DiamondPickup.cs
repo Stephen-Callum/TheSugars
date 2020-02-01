@@ -8,10 +8,11 @@ public class DiamondPickup : Base_PickUp
     {
         if (gameObject != null)
         {
-            pickupSound.Play();
+            PickupSound.Play();
             print("SOUND PLAYED");
+            base.OnCollection();
         }
-        base.OnCollection();
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,14 +26,15 @@ public class DiamondPickup : Base_PickUp
 
     private void Awake()
     {
-        pickupSound = GetComponent<AudioSource>();
-        print(pickupSound.GetType().ToString());
-        print(pickupSound.clip.name);
+        PickupSound = GetComponent<AudioSource>();
+        print(PickupSound.GetType().ToString());
+        print(PickupSound.clip.name);
     }
 
-    private void Update()
+    protected override void Update()
     {
         RotatePickup();
         YAxisHoverMotion();
+        base.Update();
     }
 }

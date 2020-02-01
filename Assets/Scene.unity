@@ -397,6 +397,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedDiamond
       objectReference: {fileID: 0}
+    - target: {fileID: 4675183673135231766, guid: 0ced6dc4b98388c4a8fb21bf40f1338d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675183673135231768, guid: 0ced6dc4b98388c4a8fb21bf40f1338d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4675183673135231770, guid: 0ced6dc4b98388c4a8fb21bf40f1338d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -432,15 +442,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4675183673252291318, guid: 0ced6dc4b98388c4a8fb21bf40f1338d,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675183673252291318, guid: 0ced6dc4b98388c4a8fb21bf40f1338d,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8176244698728128860, guid: 0ced6dc4b98388c4a8fb21bf40f1338d,
         type: 3}
       propertyPath: m_PlayOnAwake
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8176244698728128860, guid: 0ced6dc4b98388c4a8fb21bf40f1338d,
         type: 3}
       propertyPath: Priority
       value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 8176244698728128860, guid: 0ced6dc4b98388c4a8fb21bf40f1338d,
+        type: 3}
+      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8176244698728128860, guid: 0ced6dc4b98388c4a8fb21bf40f1338d,
+        type: 3}
+      propertyPath: Mute
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ced6dc4b98388c4a8fb21bf40f1338d, type: 3}
@@ -564,6 +594,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 79674db77adfc4d6f9f17fb043493b1e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100000, guid: 79674db77adfc4d6f9f17fb043493b1e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9200000, guid: 79674db77adfc4d6f9f17fb043493b1e, type: 3}
       propertyPath: m_Enabled
