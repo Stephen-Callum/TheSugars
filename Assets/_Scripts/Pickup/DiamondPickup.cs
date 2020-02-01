@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class DiamondPickup : Base_PickUp
 {
-
-    public override void OnCollection(Collider playerCollider)
+    public override void OnCollection()
     {
         if (gameObject != null)
         {
             pickupSound.Play();
             print("SOUND PLAYED");
         }
-        
-        base.OnCollection(playerCollider);
-        
+        base.OnCollection();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,11 +19,17 @@ public class DiamondPickup : Base_PickUp
         if (other.gameObject.CompareTag("Player"))
         {
             print("Player entered Diamond collider");
-            OnCollection(other);
+            OnCollection();
         }
     }
 
-    // Update is called once per frame
+    private void Awake()
+    {
+        pickupSound = GetComponent<AudioSource>();
+        print(pickupSound.GetType().ToString());
+        print(pickupSound.clip.name);
+    }
+
     private void Update()
     {
         RotatePickup();
