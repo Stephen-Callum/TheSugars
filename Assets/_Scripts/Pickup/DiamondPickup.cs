@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DiamondPickup : Base_PickUp
-{
+{   
+    // Virtual method of all pickups that is called when player enters trigger
     public override void OnCollection()
     {
         if (gameObject != null)
@@ -15,6 +16,7 @@ public class DiamondPickup : Base_PickUp
         
     }
 
+    // When player enters Pickup trigger
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
