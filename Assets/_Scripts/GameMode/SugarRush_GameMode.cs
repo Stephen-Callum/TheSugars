@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,5 +13,10 @@ public class SugarRush_GameMode : MonoBehaviour
     private void Awake()
     {
         ScoreBox = GameObject.FindGameObjectWithTag("ScoreText");
+    }
+
+    public void IncrementScore(Base_PickUp pickup)
+    {
+        print($"INCREMENT SCORE INVOKED {pickup}");
     }
 }

@@ -2,19 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class CollectedEvent : UnityEvent<Base_PickUp>
+{
+}
 
 public class Base_PickUp : MonoBehaviour
 {
     // ============ PROPERTIES AND FIELDS ================
+    public CollectedEvent m_CollectedEvent = new CollectedEvent();
+
     // Rotation speed access method
     public float PickupRotationSpeed { get; } = 1.0f;
     // AudioSource accessor method
     public AudioSource PickupSound { get => _pickupSound; set => _pickupSound = value; }
-    //protected int PickUpValue { get => _pickUpValue; set => _pickUpValue = value; }
+
+    public SugarRush_GameMode _sugarRushGameMode;
+    protected int PickUpValue;
 
     [SerializeField]
     private AudioSource _pickupSound;
-    [SerializeField]
     private float _amplitude = .1f;
     private float _frequency = 1f;
     private Vector3 _posOffset = new Vector3();
@@ -22,8 +31,6 @@ public class Base_PickUp : MonoBehaviour
     private Color _pickupColor;
     private bool _isCollected;
     private float collectedTimer = 0.0f;
-    private SugarRush_GameMode _sugarRushGameMode;
-    //private int _pickUpValue;
 
     // ============ METHODS ==================
     // Pickup rotation motion around Y axis
@@ -60,15 +67,18 @@ public class Base_PickUp : MonoBehaviour
         _isCollected = false;
     }
 
+    protected virtual void Awake()
+    {
+        m_CollectedEvent.AddListener(_sugarRushGameMode.IncrementScore);
+    }
+
     protected virtual void Update()
     {
         if (_isCollected)
         {
             collectedTimer += Time.deltaTime;
-            print("Color changing");
             _pickupColor.a = Mathf.Lerp(1.0f, 0.0f, collectedTimer * 2);
             _pickupColor = transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material.color = _pickupColor;
-            print("alpha colour = " + _pickupColor.a);
 
         }
     }
