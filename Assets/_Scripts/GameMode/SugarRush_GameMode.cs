@@ -17,6 +17,6 @@ public class SugarRush_GameMode : MonoBehaviour
 
     public void IncrementScore(Base_PickUp pickup)
     {
-        print($"INCREMENT SCORE INVOKED {pickup}");
+        print($"{pickup} has been picked up");
     }
 }

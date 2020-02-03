@@ -407,6 +407,11 @@ PrefabInstance:
       propertyPath: _sugarRushGameMode
       value: 
       objectReference: {fileID: 1446555357}
+    - target: {fileID: 4675183673135231766, guid: 0ced6dc4b98388c4a8fb21bf40f1338d,
+        type: 3}
+      propertyPath: _diamondPickUpValue
+      value: 1009
+      objectReference: {fileID: 0}
     - target: {fileID: 4675183673135231768, guid: 0ced6dc4b98388c4a8fb21bf40f1338d,
         type: 3}
       propertyPath: m_Enabled

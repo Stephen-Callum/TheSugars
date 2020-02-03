@@ -18,7 +18,6 @@ public class Base_PickUp : MonoBehaviour
     public float PickupRotationSpeed { get; } = 1.0f;
     // AudioSource accessor method
     public AudioSource PickupSound { get => _pickupSound; set => _pickupSound = value; }
-
     public SugarRush_GameMode _sugarRushGameMode;
     protected int PickUpValue;
 
@@ -53,11 +52,6 @@ public class Base_PickUp : MonoBehaviour
         Destroy(gameObject, 1);
     }
 
-    public virtual void AddScore(int score)
-    {
-        _sugarRushGameMode.ScoreBox.GetComponent<Text>().text = "999";
-    }
-
     private void Start()
     {
         _posOffset = transform.position;
@@ -79,7 +73,6 @@ public class Base_PickUp : MonoBehaviour
             collectedTimer += Time.deltaTime;
             _pickupColor.a = Mathf.Lerp(1.0f, 0.0f, collectedTimer * 2);
             _pickupColor = transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material.color = _pickupColor;
-
         }
     }
 }
