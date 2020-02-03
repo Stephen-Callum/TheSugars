@@ -5,18 +5,25 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SugarRush_GameMode : MonoBehaviour
-{
-    private GameObject _scoreBox;
+{   
+    [SerializeField]
+    private Text _scoreBox;
 
-    public GameObject ScoreBox { get => _scoreBox; set => _scoreBox = value; }
+    private int _playerScore;
+
+    public Text ScoreBox { get => _scoreBox; set => _scoreBox = value; }
+    public int PlayerScore { get => _playerScore; set => _playerScore = value; }
 
     private void Awake()
     {
-        ScoreBox = GameObject.FindGameObjectWithTag("ScoreText");
+        _playerScore = 0;
+        ScoreBox.text = _playerScore.ToString();
     }
 
     public void IncrementScore(Base_PickUp pickup)
     {
-        print($"{pickup} has been picked up");
+        print(pickup.GetValue());
+        _playerScore += pickup.GetValue();
+        ScoreBox.text = _playerScore.ToString();
     }
 }

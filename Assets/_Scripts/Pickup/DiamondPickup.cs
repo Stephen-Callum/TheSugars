@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class DiamondPickup : Base_PickUp
 {
-    // 
-    public new int PickUpValue { get => _diamondPickUpValue; set => _diamondPickUpValue = value; }
     
-    [SerializeField]
-    private int _diamondPickUpValue = 100;
 
     // Virtual method of all pickups that is called when player enters trigger
     public override void OnCollection()
@@ -19,6 +15,10 @@ public class DiamondPickup : Base_PickUp
             m_CollectedEvent.Invoke(this);
             base.OnCollection();
         }
+    }
+    override public int GetValue()
+    {
+        return pickUpValue;
     }
 
     // When player enters Pickup trigger (SHOULD PROBABLY BE IN BASE CLASS) (MAKE PUBLIC VIRTUAL)
@@ -34,6 +34,7 @@ public class DiamondPickup : Base_PickUp
     protected override void Awake()
     {
         PickupSound = GetComponent<AudioSource>();
+        PickUpValue = 10090;
         base.Awake();
     }
 
