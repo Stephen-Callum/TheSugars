@@ -19,6 +19,7 @@ public class Base_PickUp : MonoBehaviour
     // AudioSource accessor method
     public AudioSource PickupSound { get => _pickupSound; set => _pickupSound = value; }
     protected SugarRush_GameMode _sugarRushGameMode;
+    [SerializeField]
     protected int pickUpValue;
     public int PickUpValue { get => pickUpValue; set => pickUpValue = value; }
 
@@ -55,7 +56,18 @@ public class Base_PickUp : MonoBehaviour
         gameObject.GetComponent<BoxCollider>().enabled = false;
         _isCollected = true;
         print("isCollected = TRUE");
+        PickupSound.Play();
+        m_CollectedEvent.Invoke(this);
         Destroy(gameObject, 1);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            print("Player entered Diamond collider");
+            OnCollection();
+        }
     }
 
     private void Start()
@@ -72,6 +84,7 @@ public class Base_PickUp : MonoBehaviour
     {
         _sugarRushGameMode = GameObject.FindGameObjectWithTag("GameMode").GetComponent<SugarRush_GameMode>();
         m_CollectedEvent.AddListener(_sugarRushGameMode.IncrementScore);
+        PickupSound = GetComponent<AudioSource>();
     }
 
     protected virtual void Update()

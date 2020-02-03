@@ -110,6 +110,7 @@ MonoBehaviour:
   m_CollectedEvent:
     m_PersistentCalls:
       m_Calls: []
+  pickUpValue: 100
   _pickupSound: {fileID: 0}
 --- !u!82 &8176244698728128860
 AudioSource:
