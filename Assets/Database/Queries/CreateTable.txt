@@ -1,0 +1,8 @@
+CREATE TABLE LeaderBoard (
+    PlayerID INTEGER  PRIMARY KEY AUTOINCREMENT
+                      NOT NULL
+                      UNIQUE,
+    Name     TEXT     NOT NULL,
+    Score    INTEGER  NOT NULL,
+    Date     DATETIME CONSTRAINT [CURRENT_DATE] DEFAULT (CURRENT_DATE) 
+);
