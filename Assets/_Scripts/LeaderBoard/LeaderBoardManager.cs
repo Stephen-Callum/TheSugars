@@ -12,14 +12,18 @@ public class LeaderBoardManager : MonoBehaviour
     private GameObject _scorePrefab;
     [SerializeField]
     private Transform _scoreParent;
+    [SerializeField]
+    private int _topScoresToShow;
     public GameObject ScorePrefab { get => _scorePrefab; set => _scorePrefab = value; }
     public Transform ScoreParent { get => _scoreParent; set => _scoreParent = value; }
+    public int TopScoresToShow { get => _topScoresToShow; set => _topScoresToShow = value; }
 
     // Start is called before the first frame update
     void Start()
     {
         _connectionString = $"URI=file:{Application.persistentDataPath}/LeaderBoardDB.db";
         CreateLeaderBoard();
+        //InsertScore("Adnan", 5);
         ShowScores();
     }
 
@@ -118,20 +122,25 @@ public class LeaderBoardManager : MonoBehaviour
                 }
             }
         }
+        LeaderBoard.Sort();
     }
 
     private void ShowScores()
     {
         GetScores();
-        for (int i = 0; i < LeaderBoard.Count; i++)
+        for (int i = 0; i < TopScoresToShow; i++)
         {
-            GameObject tmpObj = Instantiate(ScorePrefab);
+            if (i <= LeaderBoard.Count - 1)
+            {
+                GameObject tmpObj = Instantiate(ScorePrefab);
 
-            LeaderBoard tmpScore = LeaderBoard[i];
+                LeaderBoard tmpScore = LeaderBoard[i];
 
-            tmpObj.GetComponent<LeaderBoardScript>().SetScore("#" + (i+1).ToString(), tmpScore.Name, tmpScore.Score.ToString());
+                tmpObj.GetComponent<LeaderBoardScript>().SetScore("#" + (i + 1).ToString(), tmpScore.Name, tmpScore.Score.ToString());
 
-            tmpObj.transform.SetParent(ScoreParent);
+                tmpObj.transform.SetParent(ScoreParent);
+            }
+            
         }
     }
 
