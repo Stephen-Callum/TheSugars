@@ -15,19 +15,12 @@ public class LeaderBoardManager : MonoBehaviour
     public GameObject ScorePrefab { get => _scorePrefab; set => _scorePrefab = value; }
     public Transform ScoreParent { get => _scoreParent; set => _scoreParent = value; }
 
-
     // Start is called before the first frame update
     void Start()
     {
         _connectionString = $"URI=file:{Application.persistentDataPath}/LeaderBoardDB.db";
         CreateLeaderBoard();
         ShowScores();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void CreateLeaderBoard()
