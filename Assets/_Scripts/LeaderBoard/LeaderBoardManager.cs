@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Data;
 using Mono.Data.Sqlite;
+using UnityEngine.UI;
 
 public class LeaderBoardManager : MonoBehaviour
 {
@@ -14,17 +15,35 @@ public class LeaderBoardManager : MonoBehaviour
     private Transform _scoreParent;
     [SerializeField]
     private int _topScoresToShow;
+    [SerializeField]
+    private int _scoresToSave;
+    [SerializeField]
+    private InputField _enterNameText;
+    [SerializeField]
+    private GameObject _nameDialog;
     public GameObject ScorePrefab { get => _scorePrefab; set => _scorePrefab = value; }
     public Transform ScoreParent { get => _scoreParent; set => _scoreParent = value; }
     public int TopScoresToShow { get => _topScoresToShow; set => _topScoresToShow = value; }
+    public int ScoresToSave { get => _scoresToSave; set => _scoresToSave = value; }
+    public InputField EnterNameText { get => _enterNameText; set => _enterNameText = value; }
+    public GameObject NameDialog { get => _nameDialog; set => _nameDialog = value; }
 
     // Start is called before the first frame update
     void Start()
     {
         _connectionString = $"URI=file:{Application.persistentDataPath}/LeaderBoardDB.db";
         CreateLeaderBoard();
-        //InsertScore("Adnan", 5);
+        //InsertIntoLeaderBoard("Test", 1000);
+        DeleteExtraScores();
         ShowScores();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            NameDialog.SetActive(!NameDialog.activeSelf);
+        }
     }
 
     private void CreateLeaderBoard()
@@ -50,19 +69,48 @@ public class LeaderBoardManager : MonoBehaviour
         }
     }
 
+    // Used to add the functionality of adding names to scoreboard from game.
+    public void EnterName()
+    {
+        if (EnterNameText.text != string.Empty)
+        {
+            int score = Random.Range(1, 500);
+            InsertScore(EnterNameText.text, score);
+            EnterNameText.text = string.Empty;
+            
+            ShowScores();
+        }
+    }
+
+    // Main method to insert scores
     private void InsertScore(string name, int newScore)
     {
-        using (IDbConnection dbConnection = new SqliteConnection(_connectionString))
+        GetScores();
+        int lbCount = LeaderBoard.Count;
+        if (LeaderBoard.Count > 0)
         {
-            dbConnection.Open();
-
-            using (IDbCommand dbCommand = dbConnection.CreateCommand())
+            LeaderBoard lowestScore = LeaderBoard[LeaderBoard.Count - 1];
+            // if lowest score exists
+            if (lowestScore != null && ScoresToSave > 0 && LeaderBoard.Count >= ScoresToSave && newScore > lowestScore.Score)
             {
-                dbCommand.CommandText = $"INSERT INTO LeaderBoard(Name,Score) VALUES('{name}','{newScore}');";
-                dbCommand.ExecuteScalar();
+                DeleteScore(lowestScore.ID);
+                lbCount--;
             }
+        }
+        if (lbCount < ScoresToSave)
+        {
+            using (IDbConnection dbConnection = new SqliteConnection(_connectionString))
+            {
+                dbConnection.Open();
 
-            dbConnection.Close();
+                using (IDbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbCommand.CommandText = $"INSERT INTO LeaderBoard(Name,Score) VALUES('{name}','{newScore}');";
+                    dbCommand.ExecuteScalar();
+                }
+
+                dbConnection.Close();
+            }
         }
     }
 
@@ -80,7 +128,8 @@ public class LeaderBoardManager : MonoBehaviour
         }
     }
 
-    private void InsertIntoLeaderBoard()
+    // Test method for inserting scores.
+    private void InsertIntoLeaderBoard(string name, int score)
     {
         using (var dbConnection = new SqliteConnection(_connectionString))
         {
@@ -91,7 +140,7 @@ public class LeaderBoardManager : MonoBehaviour
                 "Score" +
                 ")" +
                 "VALUES" +
-                "('Stephens', '999')";
+                $"('{name}', '{score}')";
             command.ExecuteNonQuery();
             dbConnection.Close();
         }
@@ -128,6 +177,10 @@ public class LeaderBoardManager : MonoBehaviour
     private void ShowScores()
     {
         GetScores();
+        foreach (var score in GameObject.FindGameObjectsWithTag("Score"))
+        {
+            Destroy(score);
+        }
         for (int i = 0; i < TopScoresToShow; i++)
         {
             if (i <= LeaderBoard.Count - 1)
@@ -141,6 +194,31 @@ public class LeaderBoardManager : MonoBehaviour
                 tmpObj.transform.SetParent(ScoreParent);
             }
             
+        }
+    }
+
+    private void DeleteExtraScores()
+    {
+        GetScores();
+
+        if (ScoresToSave < LeaderBoard.Count)
+        {
+            int deleteCount = LeaderBoard.Count - ScoresToSave;
+            LeaderBoard.Reverse();
+
+            using (var dbConnection = new SqliteConnection(_connectionString))
+            {
+                dbConnection.Open();
+                using (var dbCommand = dbConnection.CreateCommand())
+                {
+                    for (int i = 0; i < deleteCount; i++)
+                    {
+                        dbCommand.CommandText = $"DELETE FROM LeaderBoard WHERE PlayerID = {LeaderBoard[i].ID};";
+                        dbCommand.ExecuteScalar();
+                    }
+                }
+                dbConnection.Close();
+            }
         }
     }
 

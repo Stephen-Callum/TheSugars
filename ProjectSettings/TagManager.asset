@@ -7,6 +7,7 @@ TagManager:
   - ScoreText
   - GameMode
   - GameTimer
+  - Score
   layers:
   - Default
   - TransparentFX
