@@ -6,12 +6,34 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     private static int redirectToLevel = 1;
+    private static string _lastActiveScene;
 
-    void Update()
+    public static string LastActiveScene { get => _lastActiveScene; set => _lastActiveScene = value; }
+
+
+    //void Update()
+    //{
+    //    if (redirectToLevel == 1)
+    //    {
+    //        SceneManager.LoadScene(redirectToLevel);
+    //    }
+    //}
+
+    public static void SetLastActiveScene()
     {
-        if (redirectToLevel == 1)
+        LastActiveScene = SceneManager.GetActiveScene().name;
+    }
+
+    public static void GoToLeaderBoard()
+    {
+        SceneManager.LoadScene("LeaderBoardScene");
+    }
+
+    private void Update()
+    {
+        if (!SceneManager.GetActiveScene().name.Equals("LeaderBoardScene"))
         {
-            SceneManager.LoadScene(redirectToLevel);
+            print("This is not the leaderboard scene.");
         }
     }
 }

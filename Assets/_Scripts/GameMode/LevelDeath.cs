@@ -9,7 +9,8 @@ public class LevelDeath : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene(0);
+            
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }
