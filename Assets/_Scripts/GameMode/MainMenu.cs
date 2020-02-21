@@ -15,13 +15,25 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-    public void GoToLeaderBoard()
+    public void GoToLeaderBoardFromGO()
     {
+        // Temporary Fix
+        LevelManager.LastActiveScene = "GameOverScene";
+        SceneManager.LoadScene("LeaderBoardScene");
+    }
+
+    // Temporary duplication code for fix
+    public void GoToLeaderBoardFromMM()
+    {
+        // Temporary Fix
+        LevelManager.LastActiveScene = "MainMenu";
         SceneManager.LoadScene("LeaderBoardScene");
     }
 
     public void BackToMainMenuFromLB()
     {
+        // Temporary fix
+        LevelManager.LastActiveScene = "LeaderBoardScene";
         SceneManager.LoadScene("MainMenu");
     }
 }

@@ -5,33 +5,34 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    private static int redirectToLevel = 1;
-    private static string _lastActiveScene;
+    // access modifier, temporary fix.
+    public static string _lastActiveScene;
 
     public static string LastActiveScene { get => _lastActiveScene; set => _lastActiveScene = value; }
 
-
-    //void Update()
-    //{
-    //    if (redirectToLevel == 1)
-    //    {
-    //        SceneManager.LoadScene(redirectToLevel);
-    //    }
-    //}
-
+    // Used to check what the last active scene was.
     public static void SetLastActiveScene()
     {
         LastActiveScene = SceneManager.GetActiveScene().name;
     }
 
-    public static void GoToLeaderBoard()
+    // Set the Last active scene and then go to the next scene.
+    public void GoToNextLevel()
     {
-        SceneManager.LoadScene("LeaderBoardScene");
+        SetLastActiveScene();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    // Handle what happens when the game timer runs to zero
+    //public static void GoToLeaderBoard()
+    //{
+    //    SceneManager.LoadScene("LeaderBoardScene");
+    //}
+
+    // Handle what happens when the game timer runs to zero.
     public static void TimeUpEndGame()
     {
+        print("Level Manager being used");
+        // Temporary fix
         SceneManager.LoadScene("GameOverScene");
     }
 

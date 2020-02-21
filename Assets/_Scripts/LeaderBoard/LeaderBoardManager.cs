@@ -21,12 +21,13 @@ public class LeaderBoardManager : MonoBehaviour
     private InputField _enterNameText;
     [SerializeField]
     private GameObject _nameDialog;
+    private LevelManager _levelManager;
     public GameObject ScorePrefab { get => _scorePrefab; set => _scorePrefab = value; }
     public Transform ScoreParent { get => _scoreParent; set => _scoreParent = value; }
     public int TopScoresToShow { get => _topScoresToShow; set => _topScoresToShow = value; }
     public int ScoresToSave { get => _scoresToSave; set => _scoresToSave = value; }
-    public InputField EnterNameText { get => _enterNameText; set => _enterNameText = value; }
     public GameObject NameDialog { get => _nameDialog; set => _nameDialog = value; }
+    public InputField EnterNameText { get => _enterNameText; set => _enterNameText = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -36,13 +37,10 @@ public class LeaderBoardManager : MonoBehaviour
         //InsertIntoLeaderBoard("Test", 1000);
         DeleteExtraScores();
         ShowScores();
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        print(LevelManager.LastActiveScene);
+        if (LevelManager.LastActiveScene.Equals("GameOverScene"))
         {
-            NameDialog.SetActive(!NameDialog.activeSelf);
+            NameDialog.SetActive(true);
         }
     }
 
@@ -67,6 +65,7 @@ public class LeaderBoardManager : MonoBehaviour
         }
     }
 
+
     // Used to add the functionality of adding names to scoreboard from game.
     public void EnterName()
     {
@@ -75,7 +74,7 @@ public class LeaderBoardManager : MonoBehaviour
             int score = SugarRush_GameMode.PlayerScore;
             InsertScore(EnterNameText.text, score);
             EnterNameText.text = string.Empty;
-            
+            NameDialog.SetActive(false);
             ShowScores();
         }
     }
@@ -148,7 +147,7 @@ public class LeaderBoardManager : MonoBehaviour
     private void GetScores()
     {
         // Clear Leaderboard first
-        //LeaderBoard.Clear();
+        LeaderBoard.Clear();
 
         using (var dbConnection = new SqliteConnection(_connectionString))
         {
@@ -201,7 +200,7 @@ public class LeaderBoardManager : MonoBehaviour
 
         if (ScoresToSave < LeaderBoard.Count)
         {
-            print("DeleteExtraScores BEING RUN");
+            print($"DeleteExtraScores BEING RUN... ScoresToSave:{ScoresToSave}... Leaderboard.Count{LeaderBoard.Count}");
             int deleteCount = LeaderBoard.Count - ScoresToSave;
             LeaderBoard.Reverse();
 

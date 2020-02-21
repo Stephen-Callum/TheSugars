@@ -1231,6 +1231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 879187194}
   - component: {fileID: 879187193}
+  - component: {fileID: 879187195}
   m_Layer: 0
   m_Name: LeaderBoardManager
   m_TagString: Untagged
@@ -1253,8 +1254,8 @@ MonoBehaviour:
   _scorePrefab: {fileID: 427002498362298196, guid: b79f900d627901b4e9f881e13382347e,
     type: 3}
   _scoreParent: {fileID: 1682532610}
-  _topScoresToShow: 30
-  _scoresToSave: 20
+  _topScoresToShow: 999
+  _scoresToSave: 999
   _enterNameText: {fileID: 1871650948}
   _nameDialog: {fileID: 347071037}
 --- !u!4 &879187194
@@ -1271,6 +1272,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &879187195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879187192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e60b7f84b6b9e4499cb5985415b78a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &937706850
 GameObject:
   m_ObjectHideFlags: 0

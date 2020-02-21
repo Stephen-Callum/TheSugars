@@ -203,7 +203,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 975169072}
-        m_MethodName: GoToLeaderBoard
+        m_MethodName: GoToLeaderBoardFromMM
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
