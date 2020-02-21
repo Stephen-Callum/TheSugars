@@ -5,10 +5,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private int _health = 100;
+    private int _health = 3;
 
     [Range(100, 200)]
-    public int MaxHealth = 120;
+    public int MaxHealth = 3;
 
     // Validation at run time
     public int Health { get => _health; set => _health = Mathf.Clamp(value, 0, MaxHealth); }

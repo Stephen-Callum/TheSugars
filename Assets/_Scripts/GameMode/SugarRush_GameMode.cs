@@ -9,7 +9,7 @@ public class SugarRush_GameMode : MonoBehaviour
 {   
     [SerializeField]
     private Text _scoreBox;
-    private int _playerScore;
+    private static int _playerScore;
     [SerializeField]
     private GameObject _timerDisplay01;
     [SerializeField]
@@ -19,7 +19,7 @@ public class SugarRush_GameMode : MonoBehaviour
     private UnityEvent m_GameEnded;
 
     public Text ScoreBox { get => _scoreBox; set => _scoreBox = value; }
-    public int PlayerScore { get => _playerScore; set => _playerScore = value; }
+    public static int PlayerScore { get => _playerScore; set => _playerScore = value; }
     public GameObject Timer02 { get => _timerDisplay02; set => _timerDisplay02 = value; }
     public GameObject Timer01 { get => _timerDisplay01; set => _timerDisplay01 = value; }
     public int RoundTime { get => _roundTime; set => _roundTime = value; }
@@ -32,10 +32,11 @@ public class SugarRush_GameMode : MonoBehaviour
         RoundTime = 10;
         Timer01.GetComponent<Text>().text = RoundTime.ToString();
         Timer02.GetComponent<Text>().text = RoundTime.ToString();
+
         if (m_GameEnded == null)
         {
             m_GameEnded = new UnityEvent();
-            //m_GameEnded.AddListener();
+            m_GameEnded.AddListener(LevelManager.TimeUpEndGame);
         }
     }
 
@@ -44,6 +45,12 @@ public class SugarRush_GameMode : MonoBehaviour
         if (_isTakingSecond == false)
         {
             StartCoroutine(TakeSecond());
+        }
+        // End game if timer runs down to zero.
+        if (RoundTime == 0)
+        {
+            print("Times UP!");
+            m_GameEnded.Invoke();
         }
     }
 

@@ -29,6 +29,12 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene("LeaderBoardScene");
     }
 
+    // Handle what happens when the game timer runs to zero
+    public static void TimeUpEndGame()
+    {
+        SceneManager.LoadScene("GameOverScene");
+    }
+
     private void Update()
     {
         if (!SceneManager.GetActiveScene().name.Equals("LeaderBoardScene"))

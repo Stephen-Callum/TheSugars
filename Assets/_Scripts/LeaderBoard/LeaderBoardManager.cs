@@ -46,13 +46,12 @@ public class LeaderBoardManager : MonoBehaviour
         }
     }
 
+    // Create the first instance of the LeaderBoardDB if it does not exist.
     private void CreateLeaderBoard()
     {
         using (var dbConnection = new SqliteConnection(_connectionString))
         {
             dbConnection.Open();
-            //var dropCommand = dbConnection.CreateCommand();
-            //dropCommand.CommandText = "DROP TABLE IF EXISTS LeaderBoard";
 
             var createCommand = dbConnection.CreateCommand();
             createCommand.CommandText = "CREATE TABLE IF NOT EXISTS LeaderBoard (" +
@@ -63,7 +62,6 @@ public class LeaderBoardManager : MonoBehaviour
                 "Score INTEGER  NOT NULL," +
                 "Date     DATETIME CONSTRAINT[CURRENT_DATE] DEFAULT(CURRENT_DATE)" +
                 "); ";
-            //dropCommand.ExecuteReader();
             createCommand.ExecuteReader();
             dbConnection.Close();
         }
@@ -74,7 +72,7 @@ public class LeaderBoardManager : MonoBehaviour
     {
         if (EnterNameText.text != string.Empty)
         {
-            int score = Random.Range(1, 500);
+            int score = SugarRush_GameMode.PlayerScore;
             InsertScore(EnterNameText.text, score);
             EnterNameText.text = string.Empty;
             
@@ -114,6 +112,7 @@ public class LeaderBoardManager : MonoBehaviour
         }
     }
 
+    // Delete score at row of specified ID
     private void DeleteScore(int id)
     {
         using (var dbConnection = new SqliteConnection(_connectionString))
@@ -149,7 +148,7 @@ public class LeaderBoardManager : MonoBehaviour
     private void GetScores()
     {
         // Clear Leaderboard first
-        LeaderBoard.Clear();
+        //LeaderBoard.Clear();
 
         using (var dbConnection = new SqliteConnection(_connectionString))
         {
@@ -193,7 +192,6 @@ public class LeaderBoardManager : MonoBehaviour
 
                 tmpObj.transform.SetParent(ScoreParent);
             }
-            
         }
     }
 
@@ -203,6 +201,7 @@ public class LeaderBoardManager : MonoBehaviour
 
         if (ScoresToSave < LeaderBoard.Count)
         {
+            print("DeleteExtraScores BEING RUN");
             int deleteCount = LeaderBoard.Count - ScoresToSave;
             LeaderBoard.Reverse();
 

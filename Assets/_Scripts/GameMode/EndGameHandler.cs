@@ -5,12 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class EndGameHandler : MonoBehaviour
 {
-
-
     // Update is called once per frame
     void Update()
     {
         
     }
-
 }
