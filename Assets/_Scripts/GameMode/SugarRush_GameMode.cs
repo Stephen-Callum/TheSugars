@@ -15,6 +15,7 @@ public class SugarRush_GameMode : MonoBehaviour
     [SerializeField]
     private GameObject _timerDisplay02;
     private bool _isTakingSecond;
+    [SerializeField]
     private int _roundTime;
     private UnityEvent m_GameEnded;
 
@@ -29,7 +30,6 @@ public class SugarRush_GameMode : MonoBehaviour
         PlayerScore = 0;
         ScoreBox.text = _playerScore.ToString();
         _isTakingSecond = false;
-        RoundTime = 10;
         Timer01.GetComponent<Text>().text = RoundTime.ToString();
         Timer02.GetComponent<Text>().text = RoundTime.ToString();
 
