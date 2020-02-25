@@ -5,34 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    // Start the game at level 1
     public void PlayGame()
     {
-        SceneManager.LoadScene("Level01");
+        SceneManager.LoadScene("Level1");
     }
 
+    // Quit the game
     public void QuitGame()
     {
         Application.Quit();
     }
 
-    public void GoToLeaderBoardFromGO()
-    {
-        // Temporary Fix
-        LevelManager.LastActiveScene = "GameOverScene";
-        SceneManager.LoadScene("LeaderBoardScene");
-    }
+    
 
     // Temporary duplication code for fix
     public void GoToLeaderBoardFromMM()
     {
-        // Temporary Fix
         LevelManager.LastActiveScene = "MainMenu";
         SceneManager.LoadScene("LeaderBoardScene");
     }
 
+    // Back to main menu from leaderboard
     public void BackToMainMenuFromLB()
     {
-        // Temporary fix
         LevelManager.LastActiveScene = "LeaderBoardScene";
         SceneManager.LoadScene("MainMenu");
     }

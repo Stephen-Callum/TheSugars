@@ -11,24 +11,15 @@ public class CollectedEvent : UnityEvent<Base_PickUp>
 
 public class Base_PickUp : MonoBehaviour
 {
-    // ============ PROPERTIES AND FIELDS ================
     public CollectedEvent m_CollectedEvent = new CollectedEvent();
 
-    // Rotation speed access method
     public float PickupRotationSpeed { get; } = 1.0f;
-    // AudioSource accessor method
     public AudioSource PickupSound { get => _pickupSound; set => _pickupSound = value; }
     public int PickUpValue { get => pickUpValue; set => pickUpValue = value; }
-
     protected SugarRush_GameMode _sugarRushGameMode;
 
     [SerializeField]
     protected int pickUpValue;
-
-    virtual public int GetValue()
-    {
-        return 0;
-    }
 
     [SerializeField]
     private AudioSource _pickupSound;
@@ -40,9 +31,16 @@ public class Base_PickUp : MonoBehaviour
     private bool _isCollected;
     private float collectedTimer = 0.0f;
 
-    // ============ METHODS ==================
+
+    
     // Pickup rotation motion around Y axis
     public virtual void RotatePickup() => transform.Rotate(0, PickupRotationSpeed, 0, Space.World);
+
+    // returns the pickupValue
+    virtual public int GetValue()
+    {
+        return 0;
+    }
 
     // Pickup hover motion on Y Axis
     public virtual void YAxisHoverMotion() 
@@ -62,6 +60,7 @@ public class Base_PickUp : MonoBehaviour
         Destroy(gameObject, 1);
     }
 
+    // Handle what happens when the player overlaps 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -70,14 +69,16 @@ public class Base_PickUp : MonoBehaviour
         }
     }
 
+    // Called during the first frame
     private void Start()
     {
         _posOffset = transform.position;
-        _pickupSound = GetComponent<AudioSource>();
+        //_pickupSound = GetComponent<AudioSource>();
         _pickupColor = transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material.color;
         _isCollected = false;
     }
 
+    // Instantiate game objects
     protected virtual void Awake()
     {
         _sugarRushGameMode = GameObject.FindGameObjectWithTag("GameMode").GetComponent<SugarRush_GameMode>();
@@ -85,6 +86,7 @@ public class Base_PickUp : MonoBehaviour
         PickupSound = GetComponent<AudioSource>();
     }
 
+    // Unity Update function every frame.
     protected virtual void Update()
     {
         if (_isCollected)

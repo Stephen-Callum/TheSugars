@@ -40,6 +40,7 @@ public class SugarRush_GameMode : MonoBehaviour
         }
     }
 
+    //
     private void Update()
     {
         if (_isTakingSecond == false)

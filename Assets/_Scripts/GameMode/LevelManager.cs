@@ -5,42 +5,42 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    // access modifier, temporary fix.
     public static string _lastActiveScene;
 
     public static string LastActiveScene { get => _lastActiveScene; set => _lastActiveScene = value; }
 
-    // Used to check what the last active scene was.
+    // Used to set what the last scene was. Used to check
     public static void SetLastActiveScene()
     {
         LastActiveScene = SceneManager.GetActiveScene().name;
     }
 
-    // Set the Last active scene and then go to the next scene.
+    // Set the Last active scene and then go to the next level.
     public void GoToNextLevel()
     {
         SetLastActiveScene();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    //public static void GoToLeaderBoard()
-    //{
-    //    SceneManager.LoadScene("LeaderBoardScene");
-    //}
-
     // Handle what happens when the game timer runs to zero.
     public static void TimeUpEndGame()
     {
         print("Level Manager being used");
-        // Temporary fix
         SceneManager.LoadScene("GameOverScene");
     }
 
-    private void Update()
+    // Go to leaderboard from game over scene
+    public void GoToLeaderBoardFromGO()
     {
-        if (!SceneManager.GetActiveScene().name.Equals("LeaderBoardScene"))
-        {
-            print("This is not the leaderboard scene.");
-        }
+        // Temporary Fix
+        LastActiveScene = "GameOverScene";
+        SceneManager.LoadScene("LeaderBoardScene");
+    }
+
+    // Back to main menu from leaderboard
+    public void BackToMainMenuFromLB()
+    {
+        LastActiveScene = "LeaderBoardScene";
+        SceneManager.LoadScene("MainMenu");
     }
 }

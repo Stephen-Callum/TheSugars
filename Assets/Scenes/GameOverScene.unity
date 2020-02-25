@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -96,7 +96,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 1978a9532ee5a3149a6dd44f441eb619,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -904,7 +905,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1812210489}
+      - m_Target: {fileID: 1812210490}
         m_MethodName: GoToLeaderBoardFromGO
         m_Mode: 1
         m_Arguments:
@@ -964,6 +965,7 @@ GameObject:
   - component: {fileID: 1812210486}
   - component: {fileID: 1812210485}
   - component: {fileID: 1812210489}
+  - component: {fileID: 1812210490}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1064,6 +1066,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bec906168f4850b46a2cc24494dcd889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1812210490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812210484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e60b7f84b6b9e4499cb5985415b78a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2067624916
