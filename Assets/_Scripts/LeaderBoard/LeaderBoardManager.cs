@@ -38,8 +38,9 @@ public class LeaderBoardManager : MonoBehaviour
         DeleteExtraScores();
         ShowScores();
         print(LevelManager.LastActiveScene);
-        if (LevelManager.LastActiveScene.Equals("GameOverScene"))
+        if (LevelManager.LastActiveScene == "GameOverScene")
         {
+            
             NameDialog.SetActive(true);
         }
     }

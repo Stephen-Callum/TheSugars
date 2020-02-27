@@ -18,13 +18,17 @@ public class SugarRush_GameMode : MonoBehaviour
     [SerializeField]
     private int _roundTime;
     private UnityEvent m_GameEnded;
+    private static bool _gamePaused;
 
     public Text ScoreBox { get => _scoreBox; set => _scoreBox = value; }
     public static int PlayerScore { get => _playerScore; set => _playerScore = value; }
     public GameObject Timer02 { get => _timerDisplay02; set => _timerDisplay02 = value; }
     public GameObject Timer01 { get => _timerDisplay01; set => _timerDisplay01 = value; }
     public int RoundTime { get => _roundTime; set => _roundTime = value; }
+    public static bool GamePaused { get => _gamePaused; set => _gamePaused = value; }
+    public GameObject PlayerObject;
 
+    // Ran before the first frame
     private void Awake()
     {
         PlayerScore = 0;
@@ -38,9 +42,11 @@ public class SugarRush_GameMode : MonoBehaviour
             m_GameEnded = new UnityEvent();
             m_GameEnded.AddListener(LevelManager.TimeUpEndGame);
         }
+        PlayerObject = GameObject.FindGameObjectWithTag("Player");
+        GamePaused = false;
     }
 
-    //
+    // Run every frame
     private void Update()
     {
         if (_isTakingSecond == false)
@@ -52,6 +58,25 @@ public class SugarRush_GameMode : MonoBehaviour
         {
             print("Times UP!");
             m_GameEnded.Invoke();
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (GamePaused)
+            {
+                //Activate GUI
+                //Pause Game with Time.timescale=0; stuff
+                print("Pause button pressed");
+                Time.timeScale = 1;
+                GamePaused = false;
+            }
+            else
+            {
+                //Play Game with time.timescale=1; stuff
+                //Deactivate GUI
+                Time.timeScale = 0;
+                GamePaused = true;
+            }
         }
     }
 
@@ -68,6 +93,7 @@ public class SugarRush_GameMode : MonoBehaviour
         }
     }
 
+    // Increment score based on pickup value
     public void IncrementScore(Base_PickUp pickup)
     {
         PlayerScore += pickup.GetValue();

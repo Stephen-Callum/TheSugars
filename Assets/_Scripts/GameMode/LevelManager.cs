@@ -43,4 +43,11 @@ public class LevelManager : MonoBehaviour
         LastActiveScene = "LeaderBoardScene";
         SceneManager.LoadScene("MainMenu");
     }
+
+    // Navigate to main menu from leaderboard
+    public void GoToLeaderBoardFromMM()
+    {
+        LastActiveScene = "MainMenu";
+        SceneManager.LoadScene("LeaderBoardScene");
+    }
 }
